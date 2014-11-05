@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class FactorMath {
 
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
+        double a; double b; double c;
+        Scanner scan = new Scanner(System.in);
 		String rawInput;
         System.out.println("This will factor out whatever ");
         System.out.println("Please input in the form: ax^2 + bx + c");
@@ -11,33 +12,115 @@ public class FactorMath {
 		rawInput = scan.nextLine();
 		rawInput = rawInput.replaceAll("\\s+","");
 		if(rawInput.contains("x") && rawInput.contains("^2")) {
-			String a; String b; String c;
-            double x; double y; double z; double count = 12; double count2 = 1; double count3;
-			a = rawInput.substring(0, 1); 
-			b = rawInput.substring(5,6);
-            c = rawInput.substring(rawInput.length()-1, rawInput.length());
-
-            x = Double.parseDouble(a);
-            y = Double.parseDouble(b);
-            z = Double.parseDouble(c);
-            System.out.println(z);
-            while(count2 < count) {
-                count2++;
-                if(z%count2 == 0) {
-                    System.out.println(count2 + " is a factor of " + z);
-                    count3 = count2;
-                    if(y == (count3*2)) {
-                        System.out.println(rawInput + " factored is equal to"+"(x + "+count3+")(x + "+count3+")");
-                        return;
-                    }
-                }
-                
-            }
-		
+            double count = 12; double count2 = 1; double count3;
+            double[] nums = returnNum(rawInput);
+            a = nums[0]; b = nums[1]; c = nums[2];
+            returnAnswer(quadFormulaMinus(a,b,c), quadFormulaPlus(a,b,c));
 		}
 		else {
 		System.out.println("Please input in the form ax^2 + bx + c");
             return;
 		}
-	}
+    }
+    public static double[] returnNum(String x) {
+        String part1; String part2 = ""; String part3 = "";
+        double a; double b = 0; double c = 0; int count2 = x.length();
+        part1 = x.substring(0, 1);
+        part2 = x.substring(5,6);
+        while(count2 > 0) {
+            count2--;
+            if(x.charAt(count2) == '+') {
+                part3 = x.substring(count2+1,x.length());
+                c = Double.parseDouble(part3);
+                break;
+            }
+            if(x.charAt(count2) == '-') {
+                part3 = x.substring(count2+1,x.length());
+                c = Double.parseDouble(part3);
+                c = c*-1;
+                break;
+            }
+        }
+        int count;
+        count = count2 - 1;
+        while(count > 0) {
+            count--;
+            if(x.charAt(count) == '+') {
+                part2 = x.substring(count+1, count2-1);
+                b = Double.parseDouble(part2);
+                break;
+            }
+            if(x.charAt(count) == '-') {
+                part2 = x.substring(count+1, count2-1);
+                b = Double.parseDouble(part2);
+                b = b*-1;
+                break;
+            }
+        }
+        a = Double.parseDouble(part1);
+        double[] returnArray = {a, b, c};
+        
+        return returnArray;
+    }
+    
+    public static String returnAnswer(double a, double b) {
+        String answer = "";
+        if(a < 0 && b < 0) {
+            a = a * -1;
+            b = b * -1;
+            answer = ("Your number factored is: (x + "+a+")(x + "+b+")");
+        }
+        else if(a>0 && b > 0) {
+            answer = ("Your number factored is: (x - "+a+")(x - "+b+")");
+        }
+        else if(a>0 && b <0) {
+            b = b * -1;
+            answer = ("Your number factored is: (x - "+a+")(x + "+b+")");
+        }
+        else if(a<0 && b>0) {
+            a = a * -1;
+            answer = ("Your number factored is: (x + "+a+")(x - "+b+")");
+        }
+        else {
+            answer = "We may not have the capabilities of solving your problem yet or there was an error in the program";
+        }
+        System.out.println(answer);//TEST
+        return answer;
+    }
+
+    public static double quadFormulaPlus(double a, double b, double c) {
+        double root; double div; double plus1;double answer1;
+        root = (b*b)-(4*(a*c));
+        if(root < 0) {
+            root = root * -1;
+            div = Math.sqrt(root);
+            plus1 = (-1*b) + div;
+            answer1 = plus1/(2*a);
+            return answer1;
+        }
+        else {
+            div = Math.sqrt(root);
+            plus1 = (-1*b) + div;
+            answer1 = plus1/(2*a);
+            return answer1;
+        }
+    }
+    
+    public static double quadFormulaMinus(double a, double b, double c) {
+        double root; double div; double plus1;double answer1;
+        root = (b*b)-(4*(a*c));
+        if(root < 0) {
+            root = root * -1;
+            div = Math.sqrt(root);
+            plus1 = (-1*b) - div;
+            answer1 = plus1/(2*a);
+            return answer1;
+        }
+        else {
+            div = Math.sqrt(root);
+            plus1 = (-1*b) - div;
+            answer1 = plus1/(2*a);
+            return answer1;
+        }
+    }
 }
