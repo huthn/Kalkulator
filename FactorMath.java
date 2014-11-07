@@ -6,15 +6,23 @@ public class FactorMath {
         double a; double b; double c;
         Scanner scan = new Scanner(System.in);
 		String rawInput;
-        System.out.println("This will factor out whatever ");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("---------------------------------------------");
+        System.out.println("This will factor any polynomial");
         System.out.println("Please input in the form: ax^2 + bx + c");
-        System.out.println("If a = 1 then please input 1 into the form");
+        System.out.println("Use (shift + 6) and 2 for the symbol ^2");
+        System.out.println("If a = 1 then please input 1 into the a value");
 		rawInput = scan.nextLine();
 		rawInput = rawInput.replaceAll("\\s+","");
 		if(rawInput.contains("x") && rawInput.contains("^2")) {
             double count = 12; double count2 = 1; double count3;
             double[] nums = returnNum(rawInput);
             a = nums[0]; b = nums[1]; c = nums[2];
+            if(a != 1) {
+                System.out.println("We are still working on factoring when 'a' is more than 1");
+                return;
+            }
             returnAnswer(quadFormulaMinus(a,b,c), quadFormulaPlus(a,b,c));
 		}
 		else {
@@ -23,10 +31,8 @@ public class FactorMath {
 		}
     }
     public static double[] returnNum(String x) {
-        String part1; String part2 = ""; String part3 = "";
-        double a; double b = 0; double c = 0; int count2 = x.length();
-        part1 = x.substring(0, 1);
-        part2 = x.substring(5,6);
+        String part1 = ""; String part2 = ""; String part3 = "";
+        double a = 0; double b = 0; double c = 0; int count2 = x.length();
         while(count2 > 0) {
             count2--;
             if(x.charAt(count2) == '+') {
@@ -57,6 +63,9 @@ public class FactorMath {
                 break;
             }
         }
+        int count1;
+        count1 = count - 3;
+        part1 = x.substring(0, count1);
         a = Double.parseDouble(part1);
         double[] returnArray = {a, b, c};
         
