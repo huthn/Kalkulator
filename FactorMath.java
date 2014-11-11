@@ -15,7 +15,7 @@ public class FactorMath {
         System.out.println("If a = 1 then please input 1 into the a value");
 		rawInput = scan.nextLine();
 		rawInput = rawInput.replaceAll("\\s+","");
-		if(rawInput.contains("x") && rawInput.contains("^2")) {
+		if(rawInput.contains("^2")) {
             double count = 12; double count2 = 1; double count3;
             double[] nums = returnNum(rawInput);
             a = nums[0]; b = nums[1]; c = nums[2];
@@ -23,13 +23,27 @@ public class FactorMath {
                 System.out.println("We are still working on factoring when 'a' is more than 1");
                 return;
             }
-            returnAnswer(quadFormulaMinus(a,b,c), quadFormulaPlus(a,b,c));
+            else {
+                returnAnswer(quadFormulaMinus(a,b,c), quadFormulaPlus(a,b,c));
+            }
 		}
 		else {
-		System.out.println("Please input in the form ax^2 + bx + c");
+            System.out.println("Please input in the form ax^2 + bx + c");
+            System.out.println("For example, this is a valid function: 1x^2 + 4x + 6");
+            main(args);
             return;
 		}
     }
+    public static double[] aMoreThanOne(double a, double b, double c) {
+        double answer; double answer1;
+        double[] factors1 =
+        answer = quadFormulaMinus(a,b,c);
+        answer1 = quadFormulaPlus(a,b,c);
+        
+        
+        
+    }
+    
     public static double[] returnNum(String x) {
         String part1 = ""; String part2 = ""; String part3 = "";
         double a = 0; double b = 0; double c = 0; int count2 = x.length();
