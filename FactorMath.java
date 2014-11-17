@@ -21,6 +21,7 @@ public class FactorMath {
             a = nums[0]; b = nums[1]; c = nums[2];
             if(a != 1) {
                 System.out.println("We are still working on factoring when 'a' is more than 1");
+                aMoreThanOne(a, b, c);
                 return;
             }
             else {
@@ -34,16 +35,68 @@ public class FactorMath {
             return;
 		}
     }
+   
     public static double[] aMoreThanOne(double a, double b, double c) {
-        double answer; double answer1;
-        double[] factors1 =
-        answer = quadFormulaMinus(a,b,c);
-        answer1 = quadFormulaPlus(a,b,c);
-        
-        
-        
+        double answer; double answer1; double[] factors = new double[1];
+        findFactors(a, b, c);
+        return factors;
     }
     
+    public static double[] findFactors(double a, double b, double c) {
+        int COUNT = 120; int count1 = 0; int x = 0; double rand = 0;
+        double[] factorsA = new double[COUNT];
+        double[] factorsB = new double[COUNT];
+        int count2 = 0; int y = 0; double rand2 = 0;
+        //Check to see if they are factors
+        while(x < COUNT) {
+            //If they are factors store
+            x++;
+            if(a % x == 0) {
+                rand = a/x;
+                factorsA[count1] = rand;
+                count1++;
+                factorsA[count1] = x;
+                count1++;
+            }
+        }
+        while(y < COUNT) {
+            y++;
+            if(c % y == 0) {
+                rand2 = c/y;
+                factorsB[count2] = rand2;
+                count2++;
+                factorsB[count2] = y;
+                count2++;
+            }
+        }
+        System.out.println(factorsA[0] + ", " +factorsA[1] + ", " +factorsA[2] + ", " +factorsA[3] + ", "+ factorsA[4] + ", " + factorsA[5] + ", "+factorsB[0] + ", " +factorsB[1] + ", " +factorsB[2] + ", " +factorsB[3] + ", "+ factorsB[4] + ", ");
+        //Now that factors are found, multiply the values together
+        //Once multiplied check to see if they add up to equal b
+        int loopCount1 = 1;  int loopCount2 = COUNT; int extraNum = 0; int extraNum2 = 2; int extraNum3 = 3;
+        double[] arrayStorer = new double[COUNT];
+        while(loopCount1 < COUNT) {
+            loopCount1++;
+            //This stores the first two values of the four numbers
+            //(EG: (x,y) (a,b)= xa + yb)
+            arrayStorer[extraNum] = factorsA[extraNum] * factorsB[extraNum];
+            arrayStorer[loopCount1] = factorsA[loopCount1] * factorsB[loopCount1];
+            //This stores the other possible mutliples of the 4 numbers
+            arrayStorer[extraNum2] = factorsA[extraNum] * factorsB[loopCount1];
+            arrayStorer[extraNum3] = factorsA[loopCount1] * factorsB[extraNum];
+        }
+        //Create 4 new loops to test every possible integer combo
+        //Make new variables for loops
+        double answer[] = new double[COUNT];
+        int loop1 = 0; int loop2 = 2; int loop3 = COUNT; int loop4 = COUNT - 2;
+        while (loop1 < COUNT) {
+            if((arrayStorer[loop1] + arrayStorer[loop2])== b) {
+                System.out.println(arrayStorer[loop1] + arrayStorer[loop2]);
+                answer[0] = arrayStorer[loop1];
+                answer[1] = arrayStorer[loop2];
+            }
+        }
+        return factorsA;
+    }
     public static double[] returnNum(String x) {
         String part1 = ""; String part2 = ""; String part3 = "";
         double a = 0; double b = 0; double c = 0; int count2 = x.length();
