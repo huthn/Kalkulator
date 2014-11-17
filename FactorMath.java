@@ -80,7 +80,7 @@ public class FactorMath {
             //(EG: (x,y) (a,b)= xa + yb)
             arrayStorer[extraNum] = factorsA[extraNum] * factorsB[extraNum];
             arrayStorer[loopCount1] = factorsA[loopCount1] * factorsB[loopCount1];
-            //This stores the other possible mutliples of the 4 numbers
+            //This stores the other possible mutliples of the 4 numbersdd
             arrayStorer[extraNum2] = factorsA[extraNum] * factorsB[loopCount1];
             arrayStorer[extraNum3] = factorsA[loopCount1] * factorsB[extraNum];
         }
