@@ -17,7 +17,7 @@ public class Kalkulator {
 			//Probably call the FactorMath class
 			
 			FactorMath factoring = new FactorMath();
-			factoring.main(String[] args);	
+			factoring.main(args);	
 		}
 		
 		else if (input.equals("algebra")) {
@@ -25,7 +25,7 @@ public class Kalkulator {
 			//Probably call the AlgebraMath class
 			
 			AlgebraMath algebra = new AlgebraMath();
-			algebra.main(String[] args);
+			algebra.main(args);
 		}
 		
 		else if (input.equals("basic")) {
@@ -33,7 +33,7 @@ public class Kalkulator {
 			//Probably call the BasicMath class
 			
 			BasicMath basic = new BasicMath();
-			basic.main(String[] args);
+			basic.main(args);
 		}
 		
 		else {
