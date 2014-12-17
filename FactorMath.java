@@ -96,7 +96,7 @@ public class FactorMath {
         double answer[] = new double[COUNT];
         int loop1 = 0; int loop2 = 1; int loop3 = COUNT; int loop4 = COUNT - 2;
         while (loop1 < COUNT) {
-            if(((arrayStorer[loop1] + arrayStorer[loop2])== b) && () {
+            if((arrayStorer[loop1] + arrayStorer[loop2])== b) {
                 System.out.println(arrayStorer[loop1] + arrayStorer[loop2]);//TEST
                 answer[0] = arrayStorer[loop1];
                 answer[1] = arrayStorer[loop2];
