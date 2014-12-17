@@ -16,16 +16,15 @@ public class Kalkulator {
 			//User wants to do a factoring equation
 			//Probably call the FactorMath class
 			
-			FactorMath factoring = new FactorMath();
-			factoring.main(args);	
+			//FactorMath factoring = new FactorMath();	
 		}
 		
 		else if (input.equals("algebra")) {
 			//User wants to do a factoring equation
 			//Probably call the AlgebraMath class
 			
-			AlgebraMath algebra = new AlgebraMath();
-			algebra.main(args);
+			//AlgebraMath algebra = new AlgebraMath();
+			//algebra.main(args);
 		}
 		
 		else if (input.equals("basic")) {

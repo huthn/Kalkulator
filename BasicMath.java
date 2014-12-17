@@ -2,156 +2,140 @@ import java.util.Scanner;
 
 public class BasicMath {
 	
+	//Works if input follows order of operations.
+	//TODO fix the above...possible call the math methods from a different method (runner/reference type setup)
+	//TODO make the variables doubles so it accepts specific division and input
+	//TODO negative numbers
+	
 	private static String inputQuestion;
 	
-	public static void main(String[] args) {
+	public void start(String input) {
 		System.out.println("You have selected Basic Math. Enter your problem now.");
 		
 		Scanner scnr = new Scanner(System.in);
 		inputQuestion = scnr.nextLine().toLowerCase();
 		
 		String inputText = inputQuestion.replaceAll("\\*", "x").replaceAll("\\+", "#").replaceAll("\\s", "") + " ";
-		BasicMath.getAnswer(inputText);
+		equationCommand(inputText);
 	}
 	
-	public static void getAnswer(String input) {
-		BasicMath.reduceParentheses(input);
+	public static void equationCommand(String input) {
+		//This method is intended to control the reducing of the input
+		//Calls the reduceFunction with the correct type and index
 		
-		//System.out.println(input + " simplified from the parentheses is " + string);
-	}
-	
-	public static void reduceParentheses(String input) {
-		int parenthesesIndex = BasicMath.parenthesesSymbol(input);
-		if (parenthesesIndex == -1) {
-			//There are no more parentheses
-			BasicMath.reduceMultiplication(input);
+		int multiplicationIndex = input.indexOf("x"); //The * symbol was replaced with x
+		int divisionIndex = input.indexOf("/"); 
+		int additionIndex = input.indexOf("#"); //The + symbol was replaced with #
+		int subtractionIndex = input.indexOf("-");
+		
+		//TODO call the reduceFunction method
+		//Remember to check if the index is equal to -1 before call the next one
+		//Develop a way to check if there is only addition or subtraction left
+		
+		if (multiplicationIndex != -1 && divisionIndex != -1) {
+			
+			//There is only division and multiplication left
+			System.out.println("Only division and multiplication left.");
+		}
+		
+		else if (additionIndex != -1 && subtractionIndex != -1) {
+			
+			//There is only addition and subtraction left
+			System.out.println("Only addition and subtraction left.");
+		}
+		
+		
+		if (multiplicationIndex != -1) {
+			reduceFunction(input, "multiplication", multiplicationIndex);
+		}
+		
+		else if (divisionIndex != -1) {
+			reduceFunction(input, "division", divisionIndex);
+		}
+		
+		else if (additionIndex != -1) {
+			reduceFunction(input, "addition", additionIndex);
+		}
+		
+		else if (subtractionIndex != -1) {
+			reduceFunction(input, "subtraction", subtractionIndex);
 		}
 		
 		else {
-			int startingIndex = input.indexOf("(");
-			int finishingIndex = input.indexOf(")");
-			String parenString = input.substring(startingIndex+1, finishingIndex);
-			System.out.println("Inside the parentheses is " + parenString);
-			String reducedString = input.replaceAll(input, parenString);
-			
-			BasicMath.reduceParentheses(reducedString);
-		}
-	}
-	
-	public static void reduceMultiplication(String input) {
-		int multiplicationIndex = BasicMath.multiplicationSymbol(input);
-		if (multiplicationIndex == -1) {
-			//There is no multiplication in the parentheses
-			BasicMath.reduceDivision(input);
-		}
-		
-		else {
-			
-			int firstSide = Character.getNumericValue(input.charAt(multiplicationIndex-1));
-			int secondSide = Character.getNumericValue(input.charAt(multiplicationIndex+1));
-	
-			int result = firstSide*secondSide;
-			String stringResult = Integer.toString(result);
-		
-			String multiplicationString = input.substring(multiplicationIndex-1, multiplicationIndex+2);
-			String reducedString = input.replaceAll(multiplicationString, stringResult);
-				
-			BasicMath.reduceMultiplication(reducedString);			
-		}
-	}
-	
-	public static void reduceDivision(String input) {
-		int divisionIndex = BasicMath.divisionSymbol(input);
-		if (divisionIndex == -1) {
-			//There is no division
-			BasicMath.reduceAddition(input);
-		}
-		
-		else {
-			
-			int firstSide = Character.getNumericValue(input.charAt(divisionIndex-1));
-			int secondSide = Character.getNumericValue(input.charAt(divisionIndex+1));
-	
-			int result = firstSide/secondSide;
-			String stringResult = Integer.toString(result);
-		
-			String divisionString = input.substring(divisionIndex-1, divisionIndex+2);
-			String reducedString = input.replaceAll(divisionString, stringResult);
-		
-			BasicMath.reduceDivision(reducedString);
-		}
-	}
-	
-	public static void reduceAddition(String input) {
-		int additionIndex = BasicMath.additionSymbol(input);
-		if (additionIndex == -1) {
-			//There is no more addition
-			BasicMath.reduceSubtraction(input);
-		}
-		
-		else {
-			
-			int firstSide = Character.getNumericValue(input.charAt(additionIndex-1));
-			int secondSide = Character.getNumericValue(input.charAt(additionIndex+1));
-	
-			int result = firstSide+secondSide;
-			String stringResult = Integer.toString(result);
-					
-			String additionString = input.substring(additionIndex-1, additionIndex+2);
-			String reducedString = input.replaceAll(additionString, stringResult);
-			
-			BasicMath.reduceAddition(reducedString);
-		}
-	}
-	
-	public static void reduceSubtraction(String input) {
-		int subtractionIndex = BasicMath.subtractionSymbol(input);
-		if (subtractionIndex == -1) {
-			//There is no more subtraction
 			System.out.println(inputQuestion + " = " + input);
 		}
+	}
+	
+	public static void reduceFunction(String input, String type, int operationIndex) {
+		
+		int startIndex = previousFunction(operationIndex, input);
+		int endIndex = nextFunction(operationIndex, input);
+		double firstSide;
+		
+		if (startIndex == 0) {
+			
+			firstSide = Double.parseDouble(input.substring(0, operationIndex));
+		}
 		
 		else {
 			
-			int firstSide = Character.getNumericValue(input.charAt(subtractionIndex-1));
-			int secondSide = Character.getNumericValue(input.charAt(subtractionIndex+1));
-	
-			int result = firstSide-secondSide;
-			String stringResult = Integer.toString(result);
-					
-			String subtractionString = input.substring(subtractionIndex-1, subtractionIndex+2);
-			String reducedString = input.replaceAll(subtractionString, stringResult);
-			
-			BasicMath.reduceSubtraction(reducedString);
+			firstSide = Double.parseDouble(input.substring(startIndex, operationIndex));
 		}
 		
+		double secondSide = Double.parseDouble(input.substring(operationIndex+1, endIndex));
+		double result = 0.0;
+		
+		if (type == "multiplication") {
+			
+			result = firstSide * secondSide;
+		}
+		
+		else if (type == "division") {
+			
+			result = firstSide / secondSide;
+		}
+		
+		else if (type == "addition") {
+			
+			result = firstSide + secondSide;
+		}
+		
+		else if (type == "subtraction") {
+			
+			result = firstSide - secondSide;
+		}
+
+		String stringResult = Double.toString(result);
+		
+		String string = input.substring(startIndex, endIndex);
+		String reducedString = input.replaceAll(string, stringResult);
+			
+		equationCommand(reducedString);
 	}
 	
-	
-	//These methods determine the index of the symbol (division, multiplication, addition, subtraction)
-	//They are unnecessary
-	private static int parenthesesSymbol(String input) {
-		if (input.indexOf("(") == -1) return -1;
-		return input.indexOf("("); 
+	//These methods return the index+1 of the next function.
+	//Parameters: startingIndex(int), input(String)
+	public static int nextFunction(int start, String input) {
+		for (int i = start+1; i < input.length(); i++) {
+			if (input.charAt(i) == 'x' || input.charAt(i) == '/' || input.charAt(i) == '#' || input.charAt(i) == '-') {
+				
+				return i;
+			}
+			
+		}
+			//The end of the right value is the end of the string
+			return input.length()-1;
 	}
 	
-	private static int multiplicationSymbol(String input) {
-		if (input.indexOf("x") == -1) return -1;
-		return input.indexOf("x"); 
-	}
-	
-	private static int divisionSymbol(String input) {
-		if (input.indexOf("/") == -1) return -1;
-		return input.indexOf("/");
-	}
-	
-	private static int additionSymbol(String input) {
-		if (input.indexOf("#") == -1) return -1;
-		return input.indexOf("#");
-	}
-	
-	private static int subtractionSymbol(String input) {
-		if (input.indexOf("-") == -1) return -1;
-		return input.indexOf("-");
+	public static int previousFunction(int start, String input) {
+		for (int i = start-1; i > 0; i--) {
+			if (input.charAt(i) == 'x' || input.charAt(i) == '/' || input.charAt(i) == '#' || input.charAt(i) == '-') {
+				
+				return i+1;
+			}
+			
+		}
+			//The beginning of the left value is the beginning of the string
+			return 0;
 	}
 }
