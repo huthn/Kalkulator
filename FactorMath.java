@@ -69,32 +69,41 @@ public class FactorMath {
                 count2++;
             }
         }
-        System.out.println(factorsA[0] + ", " +factorsA[1] + ", " +factorsA[2] + ", " +factorsA[3] + ", "+ factorsA[4] + ", " + factorsA[5] + ", "+factorsB[0] + ", " +factorsB[1] + ", " +factorsB[2] + ", " +factorsB[3] + ", "+ factorsB[4] + ", ");
+        System.out.println(factorsA[0] + ", " +factorsA[1] + ", " +factorsA[2] + ", " +factorsA[3] + ", "+ factorsA[4] + ", " + factorsA[5] + ", "+factorsB[0] + ", " +factorsB[1] + ", " +factorsB[2] + ", " +factorsB[3] + ", "+ factorsB[4] + ", ");//TEST
         //Now that factors are found, multiply the values together
         //Once multiplied check to see if they add up to equal b
-        int loopCount1 = 1;  int loopCount2 = COUNT; int extraNum = 0; int extraNum2 = 2; int extraNum3 = 3;
+        int loopCount0 = 0; int loopCount1 = 1; int loopCount2 = 2; int loopCount3 = 3;
+        int extraNum = 0;  int extraNum1 = 1; int test = 0;
         double[] arrayStorer = new double[COUNT];
         while(loopCount1 < COUNT) {
-            loopCount1++;
             //This stores the first two values of the four numbers
-            //(EG: (x,y) (a,b)= xa + yb)
-            arrayStorer[extraNum] = factorsA[extraNum] * factorsB[extraNum];
-            arrayStorer[loopCount1] = factorsA[loopCount1] * factorsB[loopCount1];
-            //This stores the other possible mutliples of the 4 numbersdd
-            arrayStorer[extraNum2] = factorsA[extraNum] * factorsB[loopCount1];
-            arrayStorer[extraNum3] = factorsA[loopCount1] * factorsB[extraNum];
+            //(EG: (x,y) (a,b)= (xa + yb)
+            arrayStorer[loopCount0] = factorsA[extraNum] * factorsB[extraNum];
+            arrayStorer[loopCount1] = factorsA[extraNum1] * factorsB[extraNum1];
+           // System.out.println(arrayStorer[test]);//TEST
+            arrayStorer[loopCount2] = factorsA[extraNum] * factorsB[extraNum1];
+            arrayStorer[loopCount3] = factorsA[extraNum1] * factorsB[extraNum];
+            loopCount0+=4;
+            loopCount1+=4;
+            loopCount2+=4;
+            loopCount3+=4;
+            extraNum+=2;
+            extraNum1+=2;
+            test++;
         }
         //Create 4 new loops to test every possible integer combo
         //Make new variables for loops
         double answer[] = new double[COUNT];
-        int loop1 = 0; int loop2 = 2; int loop3 = COUNT; int loop4 = COUNT - 2;
+        int loop1 = 0; int loop2 = 1; int loop3 = COUNT; int loop4 = COUNT - 2;
         while (loop1 < COUNT) {
-            if((arrayStorer[loop1] + arrayStorer[loop2])== b) {
-                System.out.println(arrayStorer[loop1] + arrayStorer[loop2]);
+            if(((arrayStorer[loop1] + arrayStorer[loop2])== b) && () {
+                System.out.println(arrayStorer[loop1] + arrayStorer[loop2]);//TEST
                 answer[0] = arrayStorer[loop1];
                 answer[1] = arrayStorer[loop2];
             }
+            loop1++;
         }
+       // System.out.println(answer[0]); //TEST
         return factorsA;
     }
     public static double[] returnNum(String x) {
