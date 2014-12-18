@@ -18,7 +18,7 @@ public class Kalkulator {
         String[] str = new String[1];
         str[0] = "test";
         
-		if (input.equals("factoring")) {
+		if (input.equals("1")) {
 			//User wants to do a factoring equation
 			//Probably call the FactorMath class
             
@@ -40,7 +40,7 @@ public class Kalkulator {
             
         }
 		
-		else if (input.equals("pemdas")) {
+		else if (input.equals("2")) {
 			//User wants to do a factoring equation
 			//Probably call the AlgebraMath class
 			
@@ -61,7 +61,7 @@ public class Kalkulator {
             }
 		}
 		
-		else if (input.equals("basic")) {
+		else if (input.equals("3")) {
 			//User wants to do a factoring equation
 			//Probably call the BasicMath class
 			

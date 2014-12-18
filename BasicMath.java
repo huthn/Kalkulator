@@ -35,13 +35,13 @@ public class BasicMath {
 		if (multiplicationIndex != -1 && divisionIndex != -1) {
 			
 			//There is only division and multiplication left
-			System.out.println("Only division and multiplication left.");
+			//System.out.println("Only division and multiplication left.");
 		}
 		
 		else if (additionIndex != -1 && subtractionIndex != -1) {
 			
 			//There is only addition and subtraction left
-			System.out.println("Only addition and subtraction left.");
+			//System.out.println("Only addition and subtraction left.");
 		}
 		
 		
